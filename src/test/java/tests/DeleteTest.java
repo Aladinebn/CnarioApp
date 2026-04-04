@@ -7,11 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.ProfileSuggestionPage;
 
+/**
+ * Suite de tests pour la suppression de profils
+ * Vérifie que le nombre de profils diminue exactement de N après N suppressions
+ * Hérite de BasicTest qui gère le cycle de vie du navigateur (@BeforeAll, @BeforeEach, @AfterEach)
+ */
 public class DeleteTest extends BasicTest {
 
     // Logger SLF4J — Logback gère l'affichage en arrière-plan
     private static final Logger logger = LoggerFactory.getLogger(DeleteTest.class);
 
+    /**
+     * Vérifie que N suppressions diminuent le nombre de profils de N
+     * Flexible — modifier "nombreDeSuppression" pour tester différents scénarios
+     * Scénario : navigation → comptage → N clics sur X → assertion count - N
+     */
     @Test
     public void deleteProfile() {
         logger.info("Début du test deleteProfile");
@@ -27,7 +37,8 @@ public class DeleteTest extends BasicTest {
         logger.info("Nombre de profils avant suppression : {}", nombreDesProfilsAvant);
 
         // Étape 3 — Effectuer N suppressions
-        int nombreDeSuppression = 4; //  changer cette valeur selon le besoin
+        // Modifier cette valeur pour tester différents scénarios
+        int nombreDeSuppression = 4;
         for (int i = 0; i < nombreDeSuppression; i++) {
             logger.info("Suppression {} / {}", i + 1, nombreDeSuppression);
             profileSuggestionPage.clickDelete();
@@ -38,12 +49,14 @@ public class DeleteTest extends BasicTest {
         logger.info("Nombre de profils après suppression : {}", nombreDesProfilsApres);
 
         // Étape 5 — Vérifier que le nombre de profils a diminué exactement de N
+        // Le message d'erreur précise combien de suppressions étaient attendues
         Assertions.assertEquals(
                 nombreDesProfilsAvant - nombreDeSuppression,
                 nombreDesProfilsApres,
-                "Le nombre de profils aurait dû diminuer de 1 après suppression"
+                "Le nombre de profils aurait dû diminuer de " + nombreDeSuppression + " après suppression"
         );
 
-        logger.info("Fin du test deleteProfile — PASSED : {} → {}", nombreDesProfilsAvant, nombreDesProfilsApres);
+        logger.info("Fin du test deleteProfile — PASSED : {} → {} ({} suppression(s))",
+                nombreDesProfilsAvant, nombreDesProfilsApres, nombreDeSuppression);
     }
 }
