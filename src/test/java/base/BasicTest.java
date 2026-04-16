@@ -20,7 +20,7 @@ public class BasicTest {
     static void launchBrowser() {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(2000)
+                new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000)
         );
     }
 
