@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.JobApplicationForm;
 
+import java.util.Random;
+
 public class FormTest extends BasicTest {
 
     private static final Logger logger = LoggerFactory.getLogger(FormTest.class);
@@ -20,7 +22,11 @@ public class FormTest extends BasicTest {
     private static final String VALID_EMAIL = "tester@gmail.com";
     private static final int VALID_PHONE = 5306888;
     private static final String VALID_EVENT = "Frontend Conf 2025";
-    private static final int VALID_TICKETS = 3;
+    // Générer un nombre aléatoire dans une plage spécifique
+    static int max=10;
+    static int min=1;
+    static Random rand = new Random();
+    private static final int VALID_TICKETS = rand.nextInt(max - min + 1) + min;
 
     // =====================================================================
     // INITIALISATION
